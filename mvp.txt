@@ -1,0 +1,24 @@
+Questions to answer:
+    - What is the optimal pace strategy
+        - should you speed up or slow down at the end to run a fast time?
+    - How do pros pace different from regular folk
+    - What age group paces best?
+    - What gender paces best?
+
+How is this helpful:
+    - Design optimal race day plan
+    - Notice which demographic is likley to fail at pacing and dont get caught up with them
+
+Datasets:
+    - Marathon results from
+        -Boston
+             -2015
+             -2016
+             -2017
+        -Hong Kong
+Visual Elements
+    - use plotly/ matplotlib to visualize
+        - pace/time for:
+            -gender
+            -age
+            -time group
