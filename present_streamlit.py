@@ -64,7 +64,7 @@ weather_median_scatter = px.scatter(
 weather_fastest_scatter = px.scatter(
     berlin_weather, x='MAX_TEMP_C', y='fastest', trendline='ols', title='Relationship Between Fastest Finishing Time and Temperature', labels={
         'MAX_TEMP_C': 'Normalized Max Temp on race day (celcius)',
-        'fastest_time': 'Normalized Fastest Finishing Time (seconds)'
+        'fastest': 'Normalized Fastest Finishing Time (seconds)'
     })
 
 st.title('Marathon Pacing Analysis')
@@ -95,7 +95,7 @@ st.markdown('What we see here is that faster runners tend to have a overall spli
 st.header('Visualizing Every Runner')
 st.image('images/boston_splits.jpg')
 st.markdown("Here we can see clear grouping at common time goals. As you can see above 4 hours (341 seconds/km) the grouping thins out.")
-st.image('images/ba60679b-b8b2-492a-8517-7fb64cead758.png')
+st.image('images/ba60679b-b8b2-492a-8517-7fb64cead758.jpg')
 st.markdown('With the Berlin Marathon course having a leveled terrain, pace groups seem to make it slightly further, but still break apart at the end. Note the distribution of runners at the start vs at the finish.')
 st.markdown("One observation is that while we may expect an even distribution, with a solid line in the fading out from the middle, what we see is that people like to run in groups, or they like to run for round number time goals. The biggest thing I noticed is that these groups only stay together till about 30k, where they begin to spread out and the grouping falls apart. Prehaps instead of chosing a round number, a better time goal might be to use Peter Reigels endurance running formula, T2=T1×(D2÷D1)1.06 where T2 is the predicted time and T1 is a previously run time, and D1 is the previously run distance.")
 
