@@ -1,4 +1,72 @@
+from matplotlib.pyplot import title
 import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+
+boston_2015 = pd.read_csv('master_boston_2015')
+all_ages_avg = pd.read_csv('all_ages_avg_boston_2015')
+age_group_avg = pd.read_csv('age_group_avg_boston_2015')
+berlin_2019 = pd.read_csv('clean_berlin_2019')
+berlin_weather = pd.read_csv('berlin_weather_master')
+
+finishing_times_scatter = px.scatter(boston_2015.iloc[::25], x='Time in Seconds', y='Age', color='Sex', trendline='ols', hover_data=["Name", "Country"], title='Finishing Times at Boston 2015', labels={
+    'Time in Seconds': 'Finishing Time'
+})
+finishing_times_scatter.update_layout(
+    xaxis=dict(
+        tickmode='array',
+        tickvals=[7200, 9000, 10800, 12600, 14400, 16200, 18000, 19800, 21600],
+        ticktext=['2:00', '2:30', '3:00', '3:30',
+                  '4:00', '4:30', '5:00', '5:30', '6:00']
+    )
+)
+
+avg_by_age_bar = px.bar(all_ages_avg, x='Age', y='Average Time',
+                        color='Average Time', title='Average finishing times at Boston 2015')
+avg_by_age_bar.update_layout(
+    yaxis=dict(
+        tickmode='array',
+        tickvals=[0, 1800, 3600, 5400, 7200, 9000, 10800,
+                  12600, 14400, 16200, 18000, 19800, 21600],
+        ticktext=['0:00', '0:30', '1:00', '1:30', '2:00', '2:30',
+                  '3:00', '3:30', '4:00', '4:30', '5:00', '5:30', '6:00']
+    )
+)
+
+split_times_scatter = px.scatter(boston_2015.iloc[::27], x='first/second_half_split', y='Age', color='Sex', hover_data=["Name", "Country"], title='Split Times at Boston 2015', labels={
+    'first/second_half_split': 'Overall Split'
+})
+
+experience_scatter = px.scatter(berlin_2019.iloc[::50], x='Net_time', y='overall_split', color='Sex', title='Split Times at Berlin 2019', trendline='ols', labels={
+    'Net_time': 'Finishing Time',
+    'overall_split': 'Overall Split'
+})
+experience_scatter.update_layout(
+    xaxis=dict(
+        tickmode='array',
+        tickvals=[7200, 9000, 10800, 12600, 14400,
+                  16200, 18000, 19800, 21600, 23400, 25200],
+        ticktext=['2:00', '2:30', '3:00', '3:30', '4:00',
+                  '4:30', '5:00', '5:30', '6:00', '6:30', '7:00']
+    )
+)
+
+split_times_avg_bar = px.bar(age_group_avg, x='Age', y='Average split', color='Sex', barmode='group', title='Average split times at Boston 2015', labels={
+    'Average split': 'Average overall split (seconds)'
+})
+
+weather_median_scatter = px.scatter(
+    berlin_weather, x='MAX_TEMP_C', y='median_time', trendline='ols', title='Relationship Between Median Finishing Time and Temperature', labels={
+        'MAX_TEMP_C': 'Normalized Max Temp on race day (celcius)',
+        'median_time': 'Normalized Median Finishing Time (seconds)'
+    })
+
+weather_fastest_scatter = px.scatter(
+    berlin_weather, x='MAX_TEMP_C', y='fastest', trendline='ols', title='Relationship Between Fastest Finishing Time and Temperature', labels={
+        'MAX_TEMP_C': 'Normalized Max Temp on race day (celcius)',
+        'fastest_time': 'Normalized Fastest Finishing Time (seconds)'
+    })
 
 st.title('Marathon Pacing Analysis')
 st.text('By Eli Ahlander')
@@ -8,21 +76,21 @@ st.markdown("Honestly, I couldn't tell you why I love running so much. To me, ma
 st.markdown("To begin my analysis, I gathered multiple public data sources; historical averages and weather data from the Berlin Marathon since 1974, and pacing data from the 2015 Boston Marathon. I then used Selenium and Beautiful Soup to scrape over 40,000 entries for the 2019 Berlin Marathon. After cleaning the data using pandas, I used seaborn to visualize how age, gender, and weather affect pacing and overall finishing times.")
 
 st.header('Age, Gender and Finishing Time')
-st.image('images/af59a145-ebcc-4291-ab1c-58b1d8210b4f.png')
+st.plotly_chart(finishing_times_scatter)
 st.markdown("Above we can see that the first runners tend to be men in their upper 20's this wont be suprising to many, but more intresting things start to happen as we look through the data.")
 #graphs and explenation
-st.image('images/a9d9c711-e31e-4ef5-a823-de7fe69137f6.png')
+st.plotly_chart(avg_by_age_bar)
 st.markdown("This bar chart takes the average finishing time of each age. The slowest average finishing time is almost always the oldest group in the dataset.The fastest average varies depending on the year, but normally sits around 30 years old. What’s surprising is how well we maintain our fitness as we age. In this particular race (boston 2015) 18 year olds were on average slower than everyone older than them up to 57 years.")
 
 st.header('Age, Gender and Pace')
 st.markdown('In the previous scatterplot, we showed that men are typically a bit faster than women for a given age, but who paces better?')
-st.image('images/2dd2783d-5f18-469d-b830-9668a1052d4b.png')
+st.plotly_chart(split_times_scatter)
 st.markdown("This chart shows the difference between the first and last half of the race. Hats off to any runners plotted below 0, as they 'negative split' or ran a faster second half. As you can see, the battle for who paces better is much closer than the battle for fastest.")
-st.image('images/1eac6d04-325a-4eec-9aed-2be64dad3132.png')
+st.plotly_chart(split_times_avg_bar)
 st.markdown("Here we see that young men in particular pace themselves too fast in the first half, resulting in a significantly slower pace during the second half. On average, the data shows that after around 60 years old, pacing slows significantly in the second half.")
 
 st.header('Experience and Pace')
-st.image('images/99d40299-eabf-4b5f-bfe5-6fadf4d9ae24.png')
+st.plotly_chart(experience_scatter)
 st.markdown('What we see here is that faster runners tend to have a overall split close to zero. This means that they ran a first half in about the same time as their second, if not faster. In fact, 9 out of the last 10 world records were negative split, but only by a few seconds. This indicates that better trained runners can maintain high intensity for a longer duration than average trained runners. This also suggests that faster runners go out at a relativly lower exertion than the average runner, in order to save energy to hold pace the final miles.')
 
 st.header('Visualizing Every Runner')
@@ -34,10 +102,10 @@ st.markdown("One observation is that while we may expect an even distribution, w
 
 st.header("How Does Weather Effect Overall Times?")
 st.markdown(
-    'Here I used a linear regression model to see how weather effects median finishing times.')
-st.image("images/7b77f1c5-b735-40fa-92d2-baf002529629.png")
+    'Here I used a linear regression model to see how weather has effected median finishing times historically at the Berlin Marathon.')
+st.plotly_chart(weather_median_scatter)
 st.markdown("This model predicts that for every increase in degrees celsius, the median runner will lose about 54 seconds off their overall marathon time. A more interesting find is that the relationship is stronger when normalizing for more runners over time. This is also the case when normalizing max temperature, indicating that there is a trend in temperature as well as finishing time.")
-st.image('images/9aa373bb-72e0-40f2-ab3b-c39b9573354d.png')
+st.plotly_chart(weather_fastest_scatter)
 st.markdown("One very interesting finding was the lack of correlation between the fastest time and max temperature, indicating that the fastest athletes are less bothered by warmer weather conditions.")
 
 st.header("Insights")
