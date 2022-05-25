@@ -1,0 +1,28 @@
+master_boston_2015
+bib = bib number assigned by race
+Sex = self assigned sex by runner at signup
+City/State/Country = Home of the athlete
+splits = time in seconds athlete took to complete a given section of the race
+Time in seconds = Time it took the athlete to complete the course
+first/second_half_split = how much faster or slower the athlete ran the second half, negative values are faster
+age_group = athletes age group grouped every 5 years
+
+all_ages_avg_boston
+Average time = average time for that age at the boston marathon 2015
+
+age_group_avg
+Average time for ages by gender
+
+berlin_2019
+Overall_Place = how a athlete placed among their gender
+net time = actual time ran
+gross time = time from the first runner starting to a specific runner finishing
+splits =  time in seconds athlete took to complete a given section of the race
+overall_split = how much faster or slower the athlete ran the second half, negative values are faster
+age_group = athletes age group grouped every 5 years
+
+berlin_weather
+avg_time = the average time ran in the marathon that year
+fastest = the fastest time ran that year]
+median_time = the median time ran that year
+MAX_TEMP_C = the max temperature on the day of the marathon in a given year, in celcius
