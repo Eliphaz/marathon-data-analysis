@@ -72,14 +72,14 @@ st.text('By Eli Ahlander')
 
 st.header('Why Marathons?')
 st.markdown("Honestly, I couldn't tell you why I love running so much. To me, marathoning is such a spectacle. Thousands of people of all ages and shapes paying money to run outside for extended periods of time? A large frontal lobe has its flaws I suppose.")
-st.markdown("To begin my analysis, I gathered multiple public data sources; historic finishing averages and weather data from the Berlin Marathon since 1974, and pacing data from the 2015 Boston Marathon. I then used Selenium and Beautiful Soup to scrape over 40,000 entries for the 2019 Berlin Marathon. After cleaning the data using pandas, I used seaborn to visualize how age, gender, and weather affect pacing and overall finishing times.")
+st.markdown("To begin my analysis, I gathered multiple public data sources; historic finishing averages and weather data from the Berlin Marathon since 1974, and pacing data from the 2015 Boston Marathon. I then used Selenium and Beautiful Soup to scrape over 40,000 entries for the 2019 Berlin Marathon. After cleaning the data using pandas, I used plotly to visualize how age, gender, and weather affect pacing and overall finishing times.")
 
 st.header('Age, Gender and Finishing Time')
 st.plotly_chart(finishing_times_scatter)
 st.markdown("Above we can see that the first runners tend to be men in their upper 20's this wont be suprising to many, but more intresting things start to happen as we look through the data.")
 #graphs and explenation
 st.plotly_chart(avg_by_age_bar)
-st.markdown("This bar chart takes the average finishing time of each age. The slowest average finishing time is almost always the oldest group in the dataset.The fastest average varies depending on the year, but normally sits around 30 years old. What’s surprising is how well we maintain our fitness as we age. In this particular race (boston 2015) 18 year olds were on average slower than everyone older than them up to 57 years.")
+st.markdown("This bar chart takes the average finishing time of each age. The slowest average finishing time is almost always the oldest group in the dataset. The fastest average varies depending on the year, but normally sits around 30 years old. What’s surprising is how well we maintain our fitness as we age. In this particular race (boston 2015), 18 year olds were on average slower than everyone older than them up to 57 years.")
 
 st.header('Age, Gender and Pace')
 st.markdown('In the previous scatterplot, we showed that men are typically a bit faster than women for a given age, but who paces better?')
@@ -101,7 +101,7 @@ st.markdown("One observation is that while we may expect an even distribution, w
 
 st.header("How Does Weather Effect Overall Times?")
 st.markdown(
-    'Here I used a linear regression model to see how weather has effected median finishing times historically at the Berlin Marathon. The results of the spearmanr test on these variables result in a strong correlation of .76 with a highly significant p value of .0000000011')
+    'Here I used a linear regression model to see how weather has effected median finishing times historically at the Berlin Marathon. The results of the spearmanr test on these variables result in a strong correlation of .76 with a highly significant p value of 1.1e-09')
 st.plotly_chart(weather_median_scatter)
 st.markdown("This model predicts that for every increase in degrees celsius, the median runner will lose about 54 seconds off their overall marathon time. The relationship is stronger when normalizing for more runners over time. More intresting is this is also the case when normalizing for max temperature over time, indicating that there is a trend in temperature as well as finishing time.")
 st.plotly_chart(weather_fastest_scatter)
@@ -111,4 +111,4 @@ st.header("Insights")
 st.markdown("Fastest runners are most likely to be men in their upper 20s. But, if you want to run a fast second half, (and probably a fast race) you shouldn't follow an 18 year old male, as he's likely to slow down towards the end. Rather one should find an experienced female runner in her upper 30's who has a similar time goal to you, she is more likely to make it to the end without slowing down too much. There is also an indicated correlation with experience in running and pace times. More experienced runners tend to have a more even split than those who are less experienced. Weather proved to have an effect on overall pace times, as the linear regression model indicated that the warmer the temperature got, the slower the median runner will finish their marathon. Indicating that if you come from a low temperature training environment, and plan to race on a warm day, you should adjust your time goals accordingly.")
 st.markdown("The biggest thing I think one should take from this report is that endurance running is a lifetime sport, and life is an endurance event in its own right. It's never too late to start, in fact, you probably would have been bad at pacing in your youth anyways. So here's to longevity, and putting some hard earned wisdom to use, in the words of English novelist George Eliot, 'It's never too late to be what you might have been.'")
 st.subheader('Limitations of this Data')
-st.markdown("It should be noted that both of these datasets are about 60% male which can skew the visualizations a bit. However both datasets are large enough that I believe much analysis can still be made on both genders. Also as the weather is concerned, I'm sure at some point colder temperatures will have a negative effect on finishing times, but the coldest max temperature on the day of the berlin marathon was 8 degrees celsius or 46 fahrenheit, which is a bit chilly for running but still considered good running weather by many.")
+st.markdown("It should be noted that both of these datasets are about 60% male which can skew the visualizations a bit. However both datasets are large enough that I believe much analysis can still be made on both genders. Also as the weather is concerned, I'm sure at some point colder temperatures will have a negative effect on finishing times, but the coldest max temperature on the day of the Berlin Marathon was 8 degrees celsius or 46 fahrenheit, which is a bit chilly but still considered good running weather by many.")
