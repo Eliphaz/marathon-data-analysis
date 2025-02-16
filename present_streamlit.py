@@ -11,7 +11,7 @@ berlin_weather = pd.read_csv('berlin_weather_master')
 
 finishing_times_scatter = px.scatter(boston_2015.iloc[::25], x='Time in Seconds', y='Age', color='Sex', trendline='ols', hover_data=["Name", "Country"], title='Finishing Times at Boston 2015', labels={
     'Time in Seconds': 'Finishing Time'
-})
+}, color_discrete_map={'M': '#636EFA', 'W': '#EF553B'})
 finishing_times_scatter.update_layout(
     xaxis=dict(
         tickmode='array',
@@ -30,17 +30,17 @@ avg_by_age_bar.update_layout(
                   12600, 14400, 16200, 18000, 19800, 21600],
         ticktext=['0:00', '0:30', '1:00', '1:30', '2:00', '2:30',
                   '3:00', '3:30', '4:00', '4:30', '5:00', '5:30', '6:00']
-    )
+    ),
 )
 
 split_times_scatter = px.scatter(boston_2015.iloc[::27], x='first/second_half_split', y='Age', color='Sex', hover_data=["Name", "Country"], title='Split Times at Boston 2015', labels={
     'first/second_half_split': 'Overall Split'
-})
+}, color_discrete_map={'M': '#636EFA', 'W': '#EF553B'})
 
 experience_scatter = px.scatter(berlin_2019.iloc[::50], x='Net_time', y='overall_split', color='Sex', title='Split Times at Berlin 2019', trendline='ols', labels={
     'Net_time': 'Finishing Time',
     'overall_split': 'Overall Split'
-}, hover_data=['First_Name', 'Last_Name', 'Country'])
+}, hover_data=['First_Name', 'Last_Name', 'Country'], color_discrete_map={'M': '#636EFA', 'F': '#EF553B'})
 experience_scatter.update_layout(
     xaxis=dict(
         tickmode='array',
@@ -53,7 +53,7 @@ experience_scatter.update_layout(
 
 split_times_avg_bar = px.bar(age_group_avg, x='Age', y='Average split', color='Sex', barmode='group', title='Average split times at Boston 2015', labels={
     'Average split': 'Average overall split (seconds)'
-})
+}, color_discrete_map={'M': '#636EFA', 'W': '#EF553B'})
 
 weather_median_scatter = px.scatter(
     berlin_weather, x='MAX_TEMP_C', y='median_time', trendline='ols', title='Relationship Between Median Finishing Time and Temperature', labels={
